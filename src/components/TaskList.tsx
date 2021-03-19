@@ -28,18 +28,19 @@ export function TaskList() {
   }
 
   function handleToggleTaskCompletion(id: number) {
-    // Item filtrado
-    let [itemFiltered] = tasks.filter(task => task.id === id);
-    itemFiltered.isComplete = !itemFiltered.isComplete;
+    const newTasks = tasks.map(task => {
+      if (task.id === id) {
+        task.isComplete = !task.isComplete
+      }
+      return task;
+    });
 
-    // Lista filtrada
-    let listFiltered = tasks.filter(task => task.id !== id);
-    
-    setTasks([...listFiltered, itemFiltered])
+    setTasks(newTasks);
   }
 
   function handleRemoveTask(id: number) {
-    setTasks([...tasks.filter(task => task.id !== id)]);
+    const listFiltered = tasks.filter(task => task.id !== id)
+    setTasks(listFiltered);
   }
 
   return (
